@@ -1,0 +1,511 @@
+Name: Mahesh Deshpande
+
+Roll no – 11
+Practical – 1
+
+1)DFS
+
+Code:
+
+def depthfirstsearch(graph, start_node, goal_node):
+visited = set()
+stack = [(start_node, [start_node])]
+while stack:
+(current_node, path) = stack.pop()
+if current_node == goal_node:
+return path
+visited.add(current_node)
+for neighbor in graph[current_node]:
+if neighbor not in visited:
+stack.append((neighbor, path + [neighbor]))
+return None
+graph = {
+'A': ['B', 'C'],
+'B': ['A', 'D'],
+'C': ['A', 'E'],
+'D': ['B', 'E', 'F'],
+'E': ['C', 'D', 'F'],
+'F': ['D', 'E']
+}
+start_node = input("enter the start node :")
+goal_node = input("enter the goal node :")
+path = depthfirstsearch(graph, start_node, goal_node)
+if path is not None:
+print(f"Path from {start_node} to {goal_node}: {path}")
+else:
+print(f"No path found from {start_node} to {goal_node}")
+
+Output:
+
+2)BFS
+
+Code:
+
+from collections import deque
+import graphlib
+def breadthfirstsearch(graph, start_node, goal_node):
+queue = deque([(start_node, [start_node])])
+while queue:
+current_node, path = queue.popleft()
+print(f"Exploring node {current_node}: Explored nodes so far: {path}")
+if current_node == goal_node:
+return path
+for neighbor in graph[current_node]:
+if neighbor not in path:
+queue.append((neighbor, path + [neighbor]))
+return None
+print(graphlib)
+start_node = input("Enter Start Node: ")
+goal_node = input("Enter Goal Node: ")
+graph = {
+'A': ['B', 'C'],
+'B': ['A', 'D'],
+'C': ['A', 'E'],
+'D': ['B', 'E', 'F'],
+'E': ['C', 'D', 'F'],
+'F': ['D', 'E']
+}
+path = breadthfirstsearch(graph, start_node, goal_node)
+if path is not None:
+print(f"Path from {start_node} to {goal_node}: {path}")
+else:
+print(f"No path found from {start_node} to {goal_node}")
+
+Output:
+
+Name: Mahesh Deshpande
+
+Roll no – 11
+Practical – 2
+A* Algorithm – 8 Puzzle game
+
+Code:
+
+import heapq
+goal_state = [[1, 2, 3],
+[4, 5, 6],
+[7, 8, 0]]
+def h(state):
+return sum(abs(state[i][j]//3 - i) + abs(state[i][j]%3 - j) for i in range(3) for j in
+range(3) if state[i][j])
+def a_star(start_state):
+heap = [(h(start_state), start_state, 0)]
+visited = set()
+while heap:
+(cost, state, g) = heapq.heappop(heap)
+if state == goal_state:
+return g
+if str(state) in visited:
+continue
+visited.add(str(state))
+for (i, j) in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+new_state = [row[:] for row in state]
+row, col = find_zero(new_state) # type: ignore
+new_row, new_col = row+i, col+j
+if 0 <= new_row < 3 and 0 <= new_col < 3:
+new_state[row][col], new_state[new_row][new_col] =
+new_state[new_row][new_col], new_state[row][col]
+heapq.heappush(heap, (g+h(new_state), new_state, g+1))
+return -1
+def find_zero(state):
+for i in range(3):
+for j in range(3):
+if state[i][j] == 0:
+return i, j
+def print_state(state):
+for i in range(3):
+for j in range(3):
+print(state[i][j], end=' ')
+print()
+start_state = [[1, 0, 3],
+
+[4, 2, 6],
+[7, 5, 8]]
+print("Start state:")
+print_state(start_state)
+print("Goal state:")
+print_state(goal_state)
+cost = a_star(start_state)
+print("Minimum number of moves:",cost)
+
+Output:
+
+Name: Mahesh Deshpande
+
+Roll no – 11
+Practical – 3
+Selection Sort
+
+Code:
+def selection_sort(arr):
+n = len(arr)
+for i in range(n):
+min_idx = i
+for j in range(i+1, n):
+if arr[j] < arr[min_idx]:
+min_idx = j
+arr[i], arr[min_idx] = arr[min_idx], arr[i]
+print(f"Step {i+1}: {arr}")
+return arr
+arr = input("Enter comma-separated values to sort: ").split(',')
+arr = [int(x.strip()) for x in arr]
+print("Original array:", arr)
+sorted_arr = selection_sort(arr)
+print("Sorted array:",sorted_arr)
+
+Output:
+
+Name: Mahesh Deshpande
+
+Roll no – 11
+Practical – 4
+N - Queen
+
+Code:
+global N
+def getnum():
+return int(input("Enter the area of Board:"))
+def Solution(board):
+for i in range(N):
+for j in range(N):
+print(board[i][j], end=" ")
+print()
+def Safe(board, row, col):
+for i in range(col):
+if board[row][i] == 1:
+return False
+for i, j in zip(range(row, -1, -1),
+range(col, -1, -1)):
+if board[i][j] == 1:
+return False
+for i, j in zip(range(row, N, 1),
+range(col, -1, -1)):
+if board[i][j] == 1:
+return False
+return True
+def solvetill(board, col):
+if col >= N:
+return True
+for i in range(N):
+if Safe(board, i, col):
+board[i][col] = 1
+if solvetill(board, col + 1) == True:
+return True
+board[i][col] = 0
+return False
+def solveNQ():
+
+board = [[0 for i in range(N)]
+for j in range(N)]
+if solvetill(board, 0) == False:
+print("Solution does not exist")
+return False
+Solution(board)
+return True
+while(2>0):
+N =getnum()
+solveNQ()
+
+Output:
+
+import nltk
+from nltk.chat.util import Chat, reflections
+pairs=[
+#
+[
+r"my name is (.)",
+["Hello %1, How are you"]
+],
+# Or expression
+[
+r"Hi|Hello|Hey there|Hola",
+["Hello my name is Hiesenberg"]
+],
+[
+r"what is your name ?",
+["I am a bot created by Heisenbergwhat. you can call me crazy!",]
+],
+[
+r"how are you ?",
+["I'm doing good How about You ?",]
+],
+[
+r"sorry (.*)",
+["Its alright","Its OK, never mind",]
+],
+[
+r"I am fine",
+["Great to hear that, How can I help you?",]
+],
+[
+r"I (.*) good",
+["Nice to hear that","How can I help you?:)",]
+],
+[
+r"(.*) age?",
+["I'm a computer program dude Seriously you are asking me this?",]
+],
+[
+r"what (.*) want ?",
+["Make me an offer I can't refuse",]
+],
+[
+r"(.*) created ?",
+["Raghav created me using Python's NLTK library ","top secret ;)",]
+],
+[
+r"(.*) (location|city) ?",
+['Indore, Madhya Pradesh',]
+],
+[
+r"how is weather in (.*)?",
+["Weather in %1 is awesome like always","Too hot man here in %1","Too cold man here in %1","Never
+even heard about %1"]
+],
+
+[
+r"i work in (.*)?",
+["%1 is an Amazing company, I have heard about it. But they are in huge loss these days.",]
+],
+[
+r"(.*)raining in (.*)",
+["No rain since last week here in %2","Damn its raining too much here in %2"]
+],
+[
+r"how (.*) health(.*)",
+["I'm a computer program, so I'm always healthy ",]
+],
+[
+r"(.*) (sports|game) ?",
+["I'm a very big fan of Football",]
+],
+[
+r"who (.*) sportsperson ?",
+["Messy","Ronaldo","Roony"]
+],
+[
+r"who (.*) (moviestar|actor)?",
+["Brad Pitt"]
+],
+[
+r"i am looking for online guides and courses to learn data science, can you suggest?",
+["Crazy_Tech has many great articles with each step explanation along with code, you can explore"]
+],
+[
+r"quit",
+["Thank you for using our intelligence services"]
+],
+
+]
+def chat():
+print("Hey there! I am Heisenberg at your service")
+chat = Chat(pairs)
+chat.converse()
+if __name__== "__main__":
+chat()
+
+Shravani
+Percentage
+Decimal denominator = 300; // Denominator value
+Decimal maths = 70;
+Decimal physics =54;
+Decimal chemistry = 88;
+Decimal numerator = maths+physics+chemistry;
+Decimal percentage = (numerator / denominator) * 100;
+// Output the percentage value
+System.debug('Percentage: ' + percentage);
+
+Apex class
+public class PercentageCalculatorController {
+public Decimal subject1 { get; set; }
+public Decimal subject2 { get; set; }
+public Decimal subject3 { get; set; }
+public Decimal percentage { get; set; }
+public Boolean showResult { get; set; }
+
+public void calculatePercentage() {
+showResult = true;
+Decimal totalMarks = subject1 + subject2 + subject3;
+percentage = (totalMarks / 300) * 100;
+}
+}
+Visualforce
+<apex:page controller="PercentageCalculatorController">
+<apex:form>
+<apex:pageBlock title="Percentage Calculator">
+<apex:pageBlockSection>
+
+<apex:inputText value="{!subject1}" label="Subject 1"/>
+<apex:inputText value="{!subject2}" label="Subject 2"/>
+<apex:inputText value="{!subject3}" label="Subject 3"/>
+<apex:commandButton value="Calculate" action="{!calculatePercentage}"
+rerender="resultPanel"/>
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+<apex:outputPanel id="resultPanel">
+<apex:outputText value="Percentage: {!percentage}" rendered="{!showResult}"/>
+</apex:outputPanel>
+</apex:form>
+</apex:page>
+
+Calculator
+Decimal num1 = 10;
+Decimal num2 = 5;
+Decimal sum = num1+num2;
+System.debug('Sum: ' + sum);
+Decimal difference = num1-num2;
+System.debug('Difference: ' + difference);
+Decimal multiplication = num1*num2;
+System.debug('Product: ' + multiplication);
+Decimal division = num1/num2;
+System.debug('Quotient: ' + division);
+
+Apex class
+
+public class CalculatorController {
+public Decimal operand1 { get; set; }
+public Decimal operand2 { get; set; }
+public String operator { get; set; }
+public Decimal result { get; set; }
+public Boolean showResult { get; set; }
+
+public List<SelectOption> getOperators() {
+List<SelectOption> options = new List<SelectOption>();
+options.add(new SelectOption('+', 'Add'));
+options.add(new SelectOption('-', 'Subtract'));
+options.add(new SelectOption('*', 'Multiply'));
+options.add(new SelectOption('/', 'Divide'));
+return options;
+}
+
+public void calculate() {
+showResult = true;
+if (operator == '+') {
+result = operand1 + operand2;
+} else if (operator == '-') {
+result = operand1 - operand2;
+} else if (operator == '*') {
+result = operand1 * operand2;
+} else if (operator == '/') {
+if (operand2 != 0) {
+result = operand1 / operand2;
+} else {
+ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Division by
+zero is not allowed.'));
+showResult = false;
+
+}
+}
+}
+}
+Visualforce page
+<apex:page controller="CalculatorController">
+<apex:form>
+<apex:pageBlock title="Calculator">
+<apex:pageBlockSection>
+<apex:inputText value="{!operand1}" label="Operand 1"/>
+<apex:inputText value="{!operand2}" label="Operand 2"/>
+<apex:selectList value="{!operator}" size="1">
+<apex:selectOptions value="{!operators}"/>
+</apex:selectList>
+<apex:commandButton value="Calculate" action="{!calculate}" rerender="resultPanel"/>
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+<apex:outputPanel id="resultPanel">
+<apex:outputText value="Result: {!result}" rendered="{!showResult}"/>
+</apex:outputPanel>
+</apex:form>
+</apex:page>
+
+Celsius to Fahrenheit
+Decimal c = 27; // Celsius temperature to convert
+System.debug('Fahrenheit: ' + ( c * 9/5) + 32);
+
+Apex class
+public class TemperatureConverterController {
+
+public Decimal celsius { get; set; }
+public Decimal fahrenheit { get; set; }
+public Boolean showResult { get; set; }
+
+public void convertTemperature() {
+showResult = true;
+fahrenheit = (celsius * 9 / 5) + 32;
+}
+}
+Visual page
+<apex:page controller="TemperatureConverterController">
+<apex:form>
+<apex:pageBlock title="Temperature Converter">
+<apex:pageBlockSection>
+<apex:inputText value="{!celsius}" label="Celsius"/>
+<apex:commandButton value="Convert" action="{!convertTemperature}"
+rerender="resultPanel"/>
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+<apex:outputPanel id="resultPanel">
+<apex:outputText value="Fahrenheit: {!fahrenheit}" rendered="{!showResult}"/>
+</apex:outputPanel>
+</apex:form>
+</apex:page>
+
+Multiple choice
+Visualforce page :
+<apex:page controller="MultipleChoiceQuestionController">
+
+<apex:form>
+<apex:pageBlock title="Multiple Choice Question">
+<apex:pageBlockSection>
+<apex:outputText value="Question: {!currentQuestion.questionText}" />
+
+<apex:selectRadio value="{!selectedAnswer}">
+<apex:selectOptions value="{!answerOptions}" />
+</apex:selectRadio>
+
+<apex:commandButton value="Submit" action="{!submitAnswer}" />
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>
+Apex class :
+public class MultipleChoiceQuestionController {
+public Question currentQuestion { get; set; }
+public String selectedAnswer { get; set; }
+
+public MultipleChoiceQuestionController() {
+currentQuestion = new Question();
+currentQuestion.questionText = 'What is the capital of France?';
+currentQuestion.answerOptions = new List<SelectOption>();
+currentQuestion.answerOptions.add(new SelectOption('A', 'Paris'));
+currentQuestion.answerOptions.add(new SelectOption('B', 'London'));
+currentQuestion.answerOptions.add(new SelectOption('C', 'Berlin'));
+currentQuestion.answerOptions.add(new SelectOption('D', 'Madrid'));
+}
+
+public List<SelectOption> getAnswerOptions() {
+return currentQuestion.answerOptions;
+
+}
+
+public PageReference submitAnswer() {
+// Process the selected answer
+// You can add your logic here to validate the selected answer or perform any other actions
+based on it.
+
+// Redirect to another page or perform any necessary operations after submitting the answer.
+// You can define the logic to determine the next question or action based on your
+requirements.
+
+return null; // Return the PageReference for the next page or null if no redirection is needed.
+}
+
+public class Question {
+public String questionText { get; set; }
+public List<SelectOption> answerOptions { get; set; }
+}
+}
+
+
